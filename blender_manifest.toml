@@ -1,0 +1,9 @@
+schema_version = "1.0.0"
+id = "custom_time_tracker"
+version = "1.0.0"
+name = "Time Tracker"
+tagline = "A global time tracker for Blender"
+maintainer = "KevinGr19"
+type = "add-on"
+blender_version_min = "5.0.0"
+license = ["SPDX:GPL-3.0-or-later"]
