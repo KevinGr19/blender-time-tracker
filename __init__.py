@@ -123,20 +123,20 @@ def unregister_ui():
 DATA_PATH = os.path.join(bpy.utils.extension_path_user(package=__package__, path="data"), "time.json")
 
 def load_from_json():
-    if not os.path.exists(DATA_PATH): return
-    
-    try:
-        data = json.load(open(DATA_PATH, 'r'))
-    except Exception as e:
-        print(f'Could not load json data : {e}')
-        raise
-    
-    assert hasattr(bpy.context, "scene")
     props = get_props()
-    props.is_tracking = data['is_tracking']
-    props.inactivity_time = data['inactivity_time']
-    
-    timer.total_time = data['total_time']
+
+    if os.path.exists(DATA_PATH):
+        try:
+            data = json.load(open(DATA_PATH, 'r'))
+        except Exception as e:
+            print(f'Could not load json data : {e}')
+            raise
+        
+        assert hasattr(bpy.context, "scene")
+        props.is_tracking = data['is_tracking']
+        props.inactivity_time = data['inactivity_time']
+        timer.total_time = data['total_time']
+
     timer.set_inactivity_countdown(props.inactivity_time)
     start_modal_activity_track()
 
