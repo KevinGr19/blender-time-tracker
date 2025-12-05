@@ -67,7 +67,7 @@ def start_modal_activity_track():
     bpy.ops.tt.modal_activity_track()
 
 def restart_modal_activity_track(delay:float=15):
-    bpy.app.timers.register(start_modal_activity_track, first_interval=delay)
+    bpy.app.timers.register(start_modal_activity_track, first_interval=delay, persistent=True)
 
 def timer_func() -> float:
     props = get_props()
@@ -81,6 +81,9 @@ def register_timer():
     bpy.app.timers.register(timer_func, first_interval=1.0, persistent=True)
 
 def unregister_timer():
+    if bpy.app.timers.is_registered(start_modal_activity_track):
+        bpy.app.timers.unregister(start_modal_activity_track)
+    
     bpy.app.timers.unregister(timer_func)
     bpy.utils.unregister_class(TIMETRACKER_OT_modalActivityTrack)
 #endregion
