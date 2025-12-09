@@ -171,7 +171,7 @@ def register():
     register_props()
     register_timer()
     register_ui()
-    bpy.app.timers.register(load_from_json)
+    bpy.app.timers.register(load_from_json, persistent=True)
     bpy.app.handlers.save_pre.append(save_handler)
 
 def unregister():
